@@ -1,6 +1,7 @@
 <resources>
 	<string name="app_name">Screen Time</string>
 	<string name="recording">Recording screen on/off events</string>
+	<string name="widget_time_today">Current Screen Time Today:</string>
 	<plurals name="days">
 		<item quantity="one">Today</item>
 		<item quantity="other">Last %1$d days</item>
