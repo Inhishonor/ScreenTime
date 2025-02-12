@@ -4,42 +4,27 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
 
-// Implementation of App Widget functionality.
-class HomeWidget: AppWidgetProvider() {
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
-        // There may be multiple widgets active, so update all of them
+class ScreenTimeWidgetProvider : AppWidgetProvider() {
+
+    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
 
-    // Enter relevant functionality for
-    // when the first widget is created
-    override fun onEnabled(context: Context) {
+    private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+        // Get the current screen time from SharedPreferences
+        val sharedPreferences = context.getSharedPreferences("ScreenTimePrefs", Context.MODE_PRIVATE)
+        val currentScreenTime = sharedPreferences.getLong("currentScreenTime", 0L)
 
+        // Convert milliseconds to minutes
+        val minutes = currentScreenTime / 60000
+
+        // Update the widget UI
+        val views = RemoteViews(context.packageName, R.layout.screen_time_widget_layout)
+        views.setTextViewText(R.id.screenTimeTextView, widget_time_today, minutes)
+
+        // Update the widget
+        appWidgetManager.updateAppWidget(appWidgetId, views)
     }
-
-    // Enter relevant functionality for
-    // when the last widget is disabled
-    override fun onDisabled(context: Context) {
-
-    }
-}
-
-internal fun updateAppWidget(
-    context: Context,
-    appWidgetManager: AppWidgetManager,
-    appWidgetId: Int
-) {
-    val widgetText = context.getString(R.string.widget_time_today)
-    // Construct the RemoteViews object
-    val views = RemoteViews(context.packageName, R.layout.new_app_widget)
-    views.setTextViewText(R.id.appwidget_text, widgetText)
-
-    // Instruct the widget manager to update the widget
-    appWidgetManager.updateAppWidget(appWidgetId, views)
 }

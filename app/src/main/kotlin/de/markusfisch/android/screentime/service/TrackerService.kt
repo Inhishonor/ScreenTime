@@ -62,10 +62,10 @@ class TrackerService : Service() {
 		super.onCreate()
 
 		notificationManager = getSystemService(
-			Context.NOTIFICATION_SERVICE
+			NOTIFICATION_SERVICE
 		) as NotificationManager
 		powerManager = getSystemService(
-			Context.POWER_SERVICE
+			POWER_SERVICE
 		) as PowerManager
 
 		val filter = IntentFilter()
@@ -210,7 +210,12 @@ class TrackerService : Service() {
 	}
 
 	private fun updateEvent(eventId: Long) {
-		db.updateEvent(eventId, SystemClock.uptimeMillis() - uptimeFrom)
+		val screenTime = SystemClock.uptimeMillis() - uptimeFrom
+		db.updateEvent(eventId, screenTime)
+
+		// Save the current screen time to SharedPreferences
+		val sharedPreferences = getSharedPreferences("ScreenTimePrefs", Context.MODE_PRIVATE)
+		sharedPreferences.edit().putLong("currentScreenTime", screenTime).apply()
 	}
 
 	companion object {
