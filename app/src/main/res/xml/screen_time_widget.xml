@@ -7,10 +7,8 @@
     android:maxResizeWidth="250dp"
     android:maxResizeHeight="120dp"
     android:updatePeriodMillis="86400000"
-    android:description="@string/example_appwidget_description"
-    android:previewLayout="@layout/example_appwidget_preview"
-    android:initialLayout="@layout/example_loading_appwidget"
-    android:configure="de.markusfisch.android.screentime.home_widget.AppWidgetProvider"
+    android:description="@string/widget_description"
+    android:configure="de.markusfisch.android.screentime.home_widget.ScreenTimeWidgetProvider"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     android:widgetFeatures="reconfigurable|configuration_optional">

@@ -62,10 +62,10 @@ class TrackerService : Service() {
 		super.onCreate()
 
 		notificationManager = getSystemService(
-			NOTIFICATION_SERVICE
+			Context.NOTIFICATION_SERVICE
 		) as NotificationManager
 		powerManager = getSystemService(
-			POWER_SERVICE
+			Context.POWER_SERVICE
 		) as PowerManager
 
 		val filter = IntentFilter()
